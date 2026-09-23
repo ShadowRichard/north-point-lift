@@ -137,13 +137,6 @@
     }
   }
 
-  /* Marcas de esquina — motivo de plano arquitectónico */
-  .mark { position: absolute; width: 15px; height: 15px; pointer-events: none; }
-  .mark-tl { top: -7px; left: -7px;  border-top: 2px solid;    border-left: 2px solid; }
-  .mark-tr { top: -7px; right: -7px; border-top: 2px solid;    border-right: 2px solid; }
-  .mark-bl { bottom: -7px; left: -7px;  border-bottom: 2px solid; border-left: 2px solid; }
-  .mark-br { bottom: -7px; right: -7px; border-bottom: 2px solid; border-right: 2px solid; }
-
   /* Glow ambiental detrás de la foto del hero — luz cálida, no decoración */
   .hero-glow {
     position: absolute; z-index: 0; inset: -14% -10% -10% -10%; pointer-events: none;
@@ -259,18 +252,6 @@
       transition-delay: var(--reveal-delay, 0ms);
     }
     .reveal.in { opacity: 1; transform: none; }
-
-    .kenburns {
-      animation: kenburns 34s ease-in-out infinite alternate;
-      transform-origin: 60% 40%; will-change: transform;
-    }
-    @keyframes kenburns { from { transform: scale(1); } to { transform: scale(1.06); } }
-
-    .hero-glow { animation: glowPulse 8s ease-in-out infinite alternate; }
-    @keyframes glowPulse {
-      from { opacity: .65; transform: scale(1); }
-      to   { opacity: 1;   transform: scale(1.05); }
-    }
 
     /* Entrada del hero al cargar */
     .hero-in-text  { animation: heroFadeUp .9s var(--ease) .15s both; }
@@ -415,7 +396,7 @@
       <div class="hero-in-text order-2 md:order-1">
         <p class="caps text-lime eyebrow">
           <span class="live-dot inline-block h-2 w-2 rounded-full bg-lime shrink-0"></span>
-          Disponible ya · arriendo directo
+          Disponible ahora · trato directo conmigo
         </p>
 
         <h1 class="h-display mt-5 md:mt-7">
@@ -423,7 +404,7 @@
         </h1>
 
         <p class="lead text-paper/75 max-w-md mt-6">
-          Un espacio tranquilo y acogedor para estrenar.
+          Luminoso, tranquilo y listo para que lo hagas tuyo. Cualquier duda, pregúntame directo.
         </p>
 
         <!-- Resumen inmediato: lo que un arrendatario evalúa en 5 segundos -->
@@ -456,14 +437,9 @@
           <picture>
             <source srcset="images/opt/HERO.webp" type="image/webp" />
             <img src="images/HERO.jpg" width="900" height="1600" fetchpriority="high" decoding="async"
-                 alt="Sala y comedor del apartamento con ventanal hacia los cerros, North Point Lift, Bogotá"
-                 class="kenburns" />
+                 alt="Sala y comedor del apartamento con ventanal hacia los cerros, North Point Lift, Bogotá" />
           </picture>
         </div>
-        <span class="mark mark-tl text-paper/25"></span>
-        <span class="mark mark-tr text-paper/25"></span>
-        <span class="mark mark-bl text-paper/25"></span>
-        <span class="mark mark-br text-paper/25"></span>
 
         <div class="hero-in-badge absolute z-10 -bottom-6 left-5 md:-bottom-7 md:left-8 bg-paper text-ink rounded-2xl pl-3.5 pr-5 py-3 shadow-[0_20px_40px_-12px_rgba(19,33,26,.5)] flex items-center gap-3">
           <span class="h-9 w-9 shrink-0 rounded-full bg-ink text-lime grid place-items-center">
@@ -509,8 +485,8 @@
       <p class="caps text-moss eyebrow">El apartamento</p>
       <h2 class="h-section mt-5 mb-5">Espacio abierto, luz natural y vista a los cerros</h2>
       <p class="text-mist lead mb-8 max-w-prose">
-        Cocina, comedor y sala en un solo ambiente, con ventanal de piso a techo hacia los cerros.
-        <strong class="text-ink font-bold">Se entrega sin amoblar</strong>, en edificio nuevo de 2025.
+        Cocina, comedor y sala en un solo ambiente, con un ventanal de piso a techo que deja entrar la luz y los cerros.
+        <strong class="text-ink font-bold">Se entrega sin amoblar</strong>, en un edificio nuevo de 2025 — para que lo armes a tu manera.
       </p>
       <ul class="border-t border-ink/10">
         <li class="flex items-start gap-3.5 py-4 border-b border-ink/10">
@@ -541,10 +517,6 @@
                alt="Sala con ventanal y vista a los cerros orientales de Bogotá" />
         </picture>
       </button>
-      <span class="mark mark-tl text-moss/50"></span>
-      <span class="mark mark-tr text-moss/50"></span>
-      <span class="mark mark-bl text-moss/50"></span>
-      <span class="mark mark-br text-moss/50"></span>
     </div>
   </div>
 </section>
@@ -565,10 +537,6 @@
                style="object-fit:contain" />
         </picture>
       </div>
-      <span class="mark mark-tl text-moss/50"></span>
-      <span class="mark mark-tr text-moss/50"></span>
-      <span class="mark mark-bl text-moss/50"></span>
-      <span class="mark mark-br text-moss/50"></span>
     </div>
   </div>
 </section>
@@ -687,18 +655,18 @@
   <div class="max-w-container mx-auto">
     <div class="mb-10 md:mb-14 reveal max-w-2xl">
       <p class="caps text-moss eyebrow">El edificio</p>
-      <h2 class="h-section mt-5">Zonas comunes North Point Lift</h2>
+      <h2 class="h-section mt-5">Lo que tiene el edificio</h2>
     </div>
     <ul class="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-5 reveal">
       <li class="rounded-2xl bg-paper p-5 md:p-7 border border-ink/5">
         <span class="text-lime bg-ink rounded-full p-2.5 inline-grid place-items-center"><svg class="icon" aria-hidden="true"><use href="#i-dumbbell"/></svg></span>
         <p class="font-display font-semibold mt-4" style="font-size:var(--fs-h3)">Gym</p>
-        <p class="text-mist text-sm mt-1.5 leading-relaxed">Gimnasio equipado en el edificio.</p>
+        <p class="text-mist text-sm mt-1.5 leading-relaxed">Para entrenar sin salir del edificio.</p>
       </li>
       <li class="rounded-2xl bg-paper p-5 md:p-7 border border-ink/5">
         <span class="text-lime bg-ink rounded-full p-2.5 inline-grid place-items-center"><svg class="icon" aria-hidden="true"><use href="#i-briefcase"/></svg></span>
         <p class="font-display font-semibold mt-4" style="font-size:var(--fs-h3)">Coworking</p>
-        <p class="text-mist text-sm mt-1.5 leading-relaxed">Salas para el día a día remoto.</p>
+        <p class="text-mist text-sm mt-1.5 leading-relaxed">Para tus días de trabajo remoto.</p>
       </li>
       <li class="rounded-2xl bg-paper p-5 md:p-7 border border-ink/5">
         <span class="text-lime bg-ink rounded-full p-2.5 inline-grid place-items-center"><svg class="icon" aria-hidden="true"><use href="#i-leaf"/></svg></span>
@@ -785,10 +753,6 @@
                alt="Habitación principal con clóset" />
         </picture>
       </button>
-      <span class="mark mark-tl text-paper/25"></span>
-      <span class="mark mark-tr text-paper/25"></span>
-      <span class="mark mark-bl text-paper/25"></span>
-      <span class="mark mark-br text-paper/25"></span>
     </div>
   </div>
 </section>
@@ -826,10 +790,6 @@
           referrerpolicy="no-referrer-when-downgrade"
           src="https://maps.google.com/maps?q=Carrera%206%20%23155C-50%20Bogot%C3%A1&t=&z=15&ie=UTF8&iwloc=&output=embed">
         </iframe>
-        <span class="mark mark-tl text-moss/50"></span>
-        <span class="mark mark-tr text-moss/50"></span>
-        <span class="mark mark-bl text-moss/50"></span>
-        <span class="mark mark-br text-moss/50"></span>
       </div>
     </div>
   </div>
@@ -842,7 +802,7 @@
       <p class="caps text-lime">Contacto</p>
       <h2 class="h-section mt-4 mb-4">¿Te interesa? Hablemos</h2>
       <p class="text-paper/75 lead max-w-md mx-auto mb-9">
-        Escríbeme por WhatsApp y coordinamos una visita.
+        Escríbeme por WhatsApp, te cuento más y coordinamos una visita cuando te quede bien.
       </p>
       <a data-wa href="https://wa.me/573102662404" target="_blank" rel="noopener"
          class="btn tap w-full sm:w-auto inline-flex items-center justify-center gap-2.5 rounded-full bg-lime text-ink font-bold caps px-10 py-4 hover:bg-paper">
@@ -870,7 +830,7 @@
       <img src="images/opt/logo.png" alt="North Point Lift Apartamentos" width="44" height="44"
            class="h-11 w-11 rounded-full object-cover ring-1 ring-paper/15" />
     </picture>
-    <p class="caps text-paper/60">© <span id="year"></span> · Arriendo directo con el propietario</p>
+    <p class="caps text-paper/60">© <span id="year"></span> · Arriendo directo, conmigo</p>
   </div>
 </footer>
 
