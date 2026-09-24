@@ -137,12 +137,76 @@
     }
   }
 
-  /* Glow ambiental detrás de la foto del hero — luz cálida, no decoración */
-  .hero-glow {
-    position: absolute; z-index: 0; inset: -14% -10% -10% -10%; pointer-events: none;
-    background: radial-gradient(58% 48% at 52% 30%, rgba(190,220,74,.20), rgba(190,220,74,0) 68%);
-    filter: blur(10px);
+  /* Hero: foto de fondo completo en móvil, mitad derecha de borde a borde en escritorio */
+  .hero { min-height: 100svh; display: flex; }
+  .hero-inner { display: flex; align-items: flex-end; width: 100%; padding-top: 7rem; padding-bottom: 3.5rem; }
+  .hero .h-display { font-size: clamp(2.6rem, 1.7rem + 3.4vw, 4.5rem); }
+  .hero-media { position: absolute; inset: 0; }
+  .hero-media img { width: 100%; height: 100%; object-fit: cover; object-position: center 40%; }
+  .hero-shade {
+    position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(to top, #13211A 8%, rgba(19,33,26,.82) 42%, rgba(19,33,26,.25) 75%, rgba(19,33,26,.45) 100%);
   }
+  @media (min-width: 1024px) {
+    .hero-inner { align-items: center; padding-top: 8rem; padding-bottom: 5rem; }
+    .hero-media { left: 48%; }
+    .hero-shade { background: linear-gradient(to right, #13211A 48%, rgba(19,33,26,.55) 58%, rgba(19,33,26,0) 72%); }
+  }
+
+  /* Tira de datos rápidos */
+  .specs li { padding: 1.75rem .75rem; text-align: center; border-color: rgba(19,33,26,.1); }
+  .specs li:not(:nth-child(3n+1)) { border-left-width: 1px; }
+  .specs li:nth-child(-n+3) { border-bottom-width: 1px; }
+  @media (min-width: 1024px) {
+    .specs li { padding: 2.5rem 1rem; border-bottom-width: 0 !important; }
+    .specs li:nth-child(4) { border-left-width: 1px; }
+  }
+  .spec-val { font-family: 'JetBrains Mono', monospace; font-weight: 600; line-height: 1; font-size: clamp(1.75rem, 1.3rem + 2vw, 2.75rem); }
+  .spec-key { font-size: .6875rem; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; color: #57604F; margin-top: .75rem; }
+
+  /* Recorrido: bloques grandes foto + texto, alternados */
+  .tour { display: grid; gap: clamp(4rem, 2rem + 7vw, 8rem); }
+  .tour-row { display: grid; gap: 1.75rem; align-items: center; }
+  .tour-photo { aspect-ratio: 4/5; border-radius: 1.75rem; }
+  @media (min-width: 768px) {
+    .tour-row { grid-template-columns: 1.15fr 1fr; gap: clamp(3rem, 1rem + 5vw, 6rem); }
+    .tour-row--flip .tour-photo { order: 2; }
+  }
+  .tour-num { font-family: 'JetBrains Mono', monospace; font-weight: 600; color: #3C5A46; font-size: .875rem; letter-spacing: .1em; }
+  .tour-title {
+    font-family: 'Space Grotesk', system-ui, sans-serif; font-weight: 600; letter-spacing: -.025em;
+    font-size: clamp(1.75rem, 1.3rem + 2vw, 2.75rem); line-height: 1.1; margin-top: .75rem;
+  }
+  .tour-list { margin-top: 1.5rem; display: grid; gap: .75rem; }
+  .tour-list li { display: flex; align-items: center; gap: .75rem; font-weight: 600; }
+  .tour-list svg { color: #BEDC4A; background: #13211A; border-radius: 9999px; padding: 3px; width: 1.375rem; height: 1.375rem; }
+
+  /* Carrusel deslizable de fotos */
+  .strip {
+    display: grid; grid-auto-flow: column; grid-auto-columns: 62%; gap: .75rem;
+    overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: .5rem;
+    margin-inline: calc(var(--gutter) * -1); padding-inline: var(--gutter); scroll-padding-inline: var(--gutter);
+    scrollbar-width: thin;
+  }
+  @media (min-width: 640px)  { .strip { grid-auto-columns: 38%; } }
+  @media (min-width: 1024px) { .strip { grid-auto-columns: calc((100% - 4 * .75rem) / 5); margin-inline: 0; padding-inline: 0; } }
+  .strip-item { aspect-ratio: 3/4; border-radius: 1.25rem; scroll-snap-align: start; }
+
+  /* Cerca de ti */
+  .near {
+    display: flex; gap: .75rem; align-items: flex-start; padding: 1rem;
+    border-radius: 1rem; background: #fff; border: 1px solid rgba(19,33,26,.08);
+    font-size: .8125rem; color: #57604F; line-height: 1.4;
+  }
+  .near strong { display: block; color: #13211A; font-size: .9375rem; margin-bottom: .125rem; }
+
+  /* Contacto final con foto de fondo */
+  .cta-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .cta-card::before {
+    content: ""; position: absolute; inset: 0; z-index: 1;
+    background: linear-gradient(180deg, rgba(19,33,26,.72), rgba(19,33,26,.92));
+  }
+  .cta-card > .relative { z-index: 2; }
 
   /* Ficha de datos con dot leaders — firma editorial de brochure */
   .leader { display: flex; align-items: baseline; gap: .75rem; }
@@ -379,9 +443,8 @@
       </picture>
     </a>
     <div class="hidden lg:flex items-center gap-7 text-[13px] font-semibold text-paper/65">
-      <a href="#apartamento" class="hover:text-paper transition-colors">Apartamento</a>
+      <a href="#apartamento" class="hover:text-paper transition-colors">Recorrido</a>
       <a href="#plano" class="hover:text-paper transition-colors">Plano</a>
-      <a href="#galeria" class="hover:text-paper transition-colors">Galería</a>
       <a href="#amenidades" class="hover:text-paper transition-colors">Zonas comunes</a>
       <a href="#condiciones" class="hover:text-paper transition-colors">Condiciones</a>
       <a href="#ubicacion" class="hover:text-paper transition-colors">Ubicación</a>
@@ -399,9 +462,8 @@
   <!-- Menú móvil -->
   <div id="mobileMenu" hidden
        class="lg:hidden mt-2 max-w-container mx-auto rounded-3xl bg-ink border border-paper/10 p-3 shadow-[0_20px_45px_-12px_rgba(0,0,0,.6)]">
-    <a href="#apartamento" class="flex items-center justify-between px-4 py-4 rounded-2xl text-paper/85 hover:bg-paper/5 caps">Apartamento <svg class="icon-sm icon text-paper/40" aria-hidden="true"><use href="#i-chevron-right"/></svg></a>
+    <a href="#apartamento" class="flex items-center justify-between px-4 py-4 rounded-2xl text-paper/85 hover:bg-paper/5 caps">Recorrido <svg class="icon-sm icon text-paper/40" aria-hidden="true"><use href="#i-chevron-right"/></svg></a>
     <a href="#plano" class="flex items-center justify-between px-4 py-4 rounded-2xl text-paper/85 hover:bg-paper/5 caps">Plano <svg class="icon-sm icon text-paper/40" aria-hidden="true"><use href="#i-chevron-right"/></svg></a>
-    <a href="#galeria" class="flex items-center justify-between px-4 py-4 rounded-2xl text-paper/85 hover:bg-paper/5 caps">Galería <svg class="icon-sm icon text-paper/40" aria-hidden="true"><use href="#i-chevron-right"/></svg></a>
     <a href="#amenidades" class="flex items-center justify-between px-4 py-4 rounded-2xl text-paper/85 hover:bg-paper/5 caps">Zonas comunes <svg class="icon-sm icon text-paper/40" aria-hidden="true"><use href="#i-chevron-right"/></svg></a>
     <a href="#condiciones" class="flex items-center justify-between px-4 py-4 rounded-2xl text-paper/85 hover:bg-paper/5 caps">Condiciones <svg class="icon-sm icon text-paper/40" aria-hidden="true"><use href="#i-chevron-right"/></svg></a>
     <a href="#ubicacion" class="flex items-center justify-between px-4 py-4 rounded-2xl text-paper/85 hover:bg-paper/5 caps">Ubicación <svg class="icon-sm icon text-paper/40" aria-hidden="true"><use href="#i-chevron-right"/></svg></a>
@@ -412,11 +474,19 @@
 <main id="contenido">
 
 <!-- ===================== HERO ===================== -->
-<header id="inicio" class="relative overflow-hidden bg-ink text-paper">
-  <div class="max-w-container mx-auto gutter-x pt-28 pb-20 md:pt-40 md:pb-28">
-    <div class="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
+<header id="inicio" class="hero relative overflow-hidden bg-ink text-paper">
+  <div class="hero-media hero-in-photo" aria-hidden="true">
+    <picture>
+      <source srcset="images/opt/HERO.webp" type="image/webp" />
+      <img src="images/HERO.jpg" width="900" height="1600" fetchpriority="high" decoding="async" alt="" />
+    </picture>
+  </div>
+  <div class="hero-shade" aria-hidden="true"></div>
 
-      <div class="hero-in-text order-2 md:order-1">
+  <div class="relative max-w-container mx-auto gutter-x hero-inner">
+    <div class="grid lg:grid-cols-2 gap-10 items-end lg:items-center w-full">
+
+      <div class="hero-in-text">
         <p class="caps text-lime eyebrow">
           <span class="live-dot inline-block h-2 w-2 rounded-full bg-lime shrink-0"></span>
           Disponible ahora · trato directo conmigo
@@ -426,52 +496,25 @@
           Tu próximo hogar,<br class="hidden sm:block" /> en el Norte de Bogotá
         </h1>
 
-        <p class="lead text-paper/75 max-w-md mt-6">
-          Luminoso, tranquilo y listo para que lo hagas tuyo. Cualquier duda, pregúntame directo.
+        <p class="lead text-paper/80 max-w-md mt-5">
+          Luminoso, tranquilo y listo para que lo hagas tuyo. Con gym, coworking y vista a los cerros.
         </p>
 
-        <!-- Resumen inmediato: lo que un arrendatario evalúa en 5 segundos -->
-        <ul class="flex flex-wrap gap-x-6 gap-y-2 mt-7 caps text-paper/60">
-          <li>1 hab + estudio</li>
-          <li aria-hidden="true" class="text-paper/25">/</li>
-          <li>1 baño</li>
-          <li aria-hidden="true" class="text-paper/25">/</li>
-          <li>45 m²</li>
-          <li aria-hidden="true" class="text-paper/25">/</li>
-          <li>1 parqueadero</li>
-        </ul>
+        <div class="hero-price mt-8">
+          <p class="font-mono font-semibold leading-none" style="font-size:clamp(2.25rem,1.6rem + 2.6vw,3.5rem)">$2.650.000<span class="text-paper/60 text-[.4em] font-body font-semibold ml-2">/ mes</span></p>
+          <p class="caps text-lime mt-3">Administración y parqueadero incluidos</p>
+        </div>
 
-        <div class="flex flex-col sm:flex-row gap-3 mt-9">
+        <div class="flex flex-col sm:flex-row gap-3 mt-8">
           <a data-wa href="https://wa.me/573102662404" target="_blank" rel="noopener"
              class="btn tap inline-flex items-center justify-center gap-2.5 rounded-full bg-lime text-ink font-bold text-sm px-8 py-4 hover:bg-paper">
             <svg class="icon" aria-hidden="true"><use href="#i-chat"/></svg>
-            Escríbeme por WhatsApp
+            Agenda tu visita
           </a>
-          <a href="#galeria" class="btn tap inline-flex items-center justify-center gap-2 rounded-full border border-paper/30 text-paper font-semibold text-sm px-8 py-4 hover:border-paper/70 hover:bg-paper/5">
-            Ver galería
+          <a href="#apartamento" class="btn tap inline-flex items-center justify-center gap-2 rounded-full border border-paper/35 text-paper font-semibold text-sm px-8 py-4 hover:border-paper/70 hover:bg-paper/10 backdrop-blur-sm">
+            Recorrer el apartamento
             <svg class="icon" aria-hidden="true"><use href="#i-arrow-down"/></svg>
           </a>
-        </div>
-      </div>
-
-      <div class="hero-in-photo order-1 md:order-2 relative mb-10 md:mb-0">
-        <div class="hero-glow" aria-hidden="true"></div>
-        <div class="frame aspect-[4/5] rounded-3xl">
-          <picture>
-            <source srcset="images/opt/HERO.webp" type="image/webp" />
-            <img src="images/HERO.jpg" width="900" height="1600" fetchpriority="high" decoding="async"
-                 alt="Sala y comedor del apartamento con ventanal hacia los cerros, North Point Lift, Bogotá" />
-          </picture>
-        </div>
-
-        <div class="hero-in-badge absolute z-10 -bottom-6 left-5 md:-bottom-7 md:left-8 bg-paper text-ink rounded-2xl pl-3.5 pr-5 py-3 shadow-[0_20px_40px_-12px_rgba(19,33,26,.5)] flex items-center gap-3">
-          <span class="h-9 w-9 shrink-0 rounded-full bg-ink text-lime grid place-items-center">
-            <svg class="icon" aria-hidden="true"><use href="#i-home"/></svg>
-          </span>
-          <div class="leading-tight">
-            <p class="font-mono font-bold text-lg leading-none">$2.650.000</p>
-            <p class="caps text-mist mt-1.5 text-[10px] tracking-[.12em]">COP / mes · admón. incluida</p>
-          </div>
         </div>
       </div>
 
@@ -481,77 +524,160 @@
 
 <!-- ===================== SPECS — franja de datos ===================== -->
 <section class="bg-paper border-b border-ink/10" aria-label="Datos principales del apartamento">
-  <div class="max-w-container mx-auto gutter-x grid grid-cols-2 md:grid-cols-4 md:divide-x divide-ink/10">
-    <div class="py-9 md:py-12 px-4 text-center border-b md:border-b-0 border-ink/10">
-      <p class="font-mono font-semibold" style="font-size:var(--fs-data);line-height:1">1<span class="text-moss">+1</span></p>
-      <p class="caps text-mist mt-3">Habitación + estudio</p>
-    </div>
-    <div class="py-9 md:py-12 px-4 text-center border-b md:border-b-0 border-l md:border-l-0 border-ink/10">
-      <p class="font-mono font-semibold" style="font-size:var(--fs-data);line-height:1">1</p>
-      <p class="caps text-mist mt-3">Baño completo</p>
-    </div>
-    <div class="py-9 md:py-12 px-4 text-center">
-      <p class="font-mono font-semibold" style="font-size:var(--fs-data);line-height:1">45<span class="text-moss text-[.55em]">m²</span></p>
-      <p class="caps text-mist mt-3">Área aproximada</p>
-    </div>
-    <div class="py-9 md:py-12 px-4 text-center border-l md:border-l-0 border-ink/10">
-      <p class="font-mono font-semibold" style="font-size:var(--fs-data);line-height:1">1</p>
-      <p class="caps text-mist mt-3">Parqueadero</p>
-    </div>
-  </div>
+  <ul class="specs max-w-container mx-auto gutter-x grid grid-cols-3 lg:grid-cols-6">
+    <li><p class="spec-val">1<span class="text-moss">+1</span></p><p class="spec-key">Hab. + estudio</p></li>
+    <li><p class="spec-val">1</p><p class="spec-key">Baño</p></li>
+    <li><p class="spec-val">45<span class="text-moss text-[.55em]">m²</span></p><p class="spec-key">Área aprox.</p></li>
+    <li><p class="spec-val">1</p><p class="spec-key">Parqueadero</p></li>
+    <li><p class="spec-val">4</p><p class="spec-key">Estrato</p></li>
+    <li><p class="spec-val">Sí</p><p class="spec-key">Mascotas</p></li>
+  </ul>
 </section>
 
-<!-- ===================== APARTAMENTO ===================== -->
+<!-- ===================== RECORRIDO ===================== -->
 <section id="apartamento" class="section-y gutter-x">
-  <div class="max-w-container mx-auto grid md:grid-cols-2 gap-10 lg:gap-20 items-center">
-    <div class="reveal order-2 md:order-1">
+  <div class="max-w-container mx-auto">
+    <div class="reveal max-w-2xl mb-14 md:mb-24">
       <p class="caps text-moss eyebrow">El apartamento</p>
-      <h2 class="h-section mt-5 mb-5">Espacio abierto, luz natural y vista a los cerros</h2>
-      <p class="text-mist lead mb-8 max-w-prose">
-        Cocina, comedor y sala en un solo ambiente, con un ventanal de piso a techo que deja entrar la luz y los cerros.
-        <strong class="text-ink font-bold">Se entrega sin amoblar</strong>, en un edificio nuevo de 2025 — para que lo armes a tu manera.
+      <h2 class="h-section mt-5 mb-5">Un recorrido por tu próximo hogar</h2>
+      <p class="text-mist lead">
+        Edificio nuevo (2025), ventanales de piso a techo y luz todo el día.
+        <strong class="text-ink font-bold">Se entrega sin amoblar</strong>, para que lo armes a tu manera. Toca cualquier foto para ampliarla.
       </p>
-      <ul class="border-t border-ink/10">
-        <li class="flex items-start gap-3.5 py-4 border-b border-ink/10">
-          <span class="text-lime bg-ink rounded-full p-1 mt-0.5 shrink-0 grid place-items-center"><svg class="icon-sm icon" aria-hidden="true"><use href="#i-check"/></svg></span>
-          <span>Cocina integral con campana, estufa de gas y horno empotrado</span>
-        </li>
-        <li class="flex items-start gap-3.5 py-4 border-b border-ink/10">
-          <span class="text-lime bg-ink rounded-full p-1 mt-0.5 shrink-0 grid place-items-center"><svg class="icon-sm icon" aria-hidden="true"><use href="#i-check"/></svg></span>
-          <span>Ventanal de piso a techo con vista a los cerros</span>
-        </li>
-        <li class="flex items-start gap-3.5 py-4 border-b border-ink/10">
-          <span class="text-lime bg-ink rounded-full p-1 mt-0.5 shrink-0 grid place-items-center"><svg class="icon-sm icon" aria-hidden="true"><use href="#i-check"/></svg></span>
-          <span>Habitación principal con clóset amplio</span>
-        </li>
-        <li class="flex items-start gap-3.5 py-4 border-b border-ink/10">
-          <span class="text-lime bg-ink rounded-full p-1 mt-0.5 shrink-0 grid place-items-center"><svg class="icon-sm icon" aria-hidden="true"><use href="#i-check"/></svg></span>
-          <span>Estudio independiente para home office</span>
-        </li>
-      </ul>
     </div>
 
-    <div class="reveal order-1 md:order-2 relative">
-      <button type="button" class="shot frame aspect-[4/5] rounded-3xl" data-shot
-              aria-label="Ampliar foto: sala con ventanal y vista a los cerros">
-        <picture>
-          <source srcset="images/opt/08-vista.webp" type="image/webp" />
-          <img src="images/08-vista.jpg" width="900" height="1600" loading="lazy" decoding="async"
-               alt="Sala con ventanal y vista a los cerros orientales de Bogotá" />
-        </picture>
-      </button>
+    <div class="tour">
+
+      <article class="tour-row reveal">
+        <button type="button" data-shot class="shot frame tour-photo" aria-label="Ampliar foto: sala y zona social">
+          <picture>
+            <source srcset="images/opt/02-sala.webp" type="image/webp" />
+            <img src="images/02-sala.jpg" width="900" height="1600" loading="lazy" decoding="async"
+                 alt="Sala con sofá, comedor y cocina al fondo" />
+          </picture>
+        </button>
+        <div class="tour-text">
+          <p class="tour-num">01</p>
+          <h3 class="tour-title">Sala y comedor</h3>
+          <p class="text-mist lead mt-4">Cocina, comedor y sala en un solo ambiente abierto, con un ventanal que deja entrar la luz y los cerros.</p>
+          <ul class="tour-list">
+            <li><svg class="icon-sm icon" aria-hidden="true"><use href="#i-check"/></svg>Ventanal de piso a techo</li>
+            <li><svg class="icon-sm icon" aria-hidden="true"><use href="#i-check"/></svg>Luz natural todo el día</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="tour-row tour-row--flip reveal">
+        <button type="button" data-shot class="shot frame tour-photo" aria-label="Ampliar foto: cocina equipada">
+          <picture>
+            <source srcset="images/opt/04-cocina.webp" type="image/webp" />
+            <img src="images/04-cocina.jpg" width="900" height="1600" loading="lazy" decoding="async"
+                 alt="Cocina equipada con campana, estufa de gas y horno" />
+          </picture>
+        </button>
+        <div class="tour-text">
+          <p class="tour-num">02</p>
+          <h3 class="tour-title">Cocina integral</h3>
+          <p class="text-mist lead mt-4">Abierta hacia la zona social, para cocinar sin quedarte por fuera de la conversación.</p>
+          <ul class="tour-list">
+            <li><svg class="icon-sm icon" aria-hidden="true"><use href="#i-check"/></svg>Campana y estufa de gas</li>
+            <li><svg class="icon-sm icon" aria-hidden="true"><use href="#i-check"/></svg>Horno empotrado</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="tour-row reveal">
+        <button type="button" data-shot class="shot frame tour-photo" aria-label="Ampliar foto: habitación principal">
+          <picture>
+            <source srcset="images/opt/05-habitacion.webp" type="image/webp" />
+            <img src="images/05-habitacion.jpg" width="900" height="1600" loading="lazy" decoding="async"
+                 alt="Habitación principal con ventanal y vista a los cerros" />
+          </picture>
+        </button>
+        <div class="tour-text">
+          <p class="tour-num">03</p>
+          <h3 class="tour-title">Habitación principal</h3>
+          <p class="text-mist lead mt-4">Tranquila y luminosa, con ventanal hacia el verde y clóset amplio.</p>
+          <ul class="tour-list">
+            <li><svg class="icon-sm icon" aria-hidden="true"><use href="#i-check"/></svg>Clóset en madera</li>
+            <li><svg class="icon-sm icon" aria-hidden="true"><use href="#i-check"/></svg>Vista a zona verde</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="tour-row tour-row--flip reveal">
+        <button type="button" data-shot class="shot frame tour-photo" aria-label="Ampliar foto: estudio">
+          <picture>
+            <source srcset="images/opt/07-estudio.webp" type="image/webp" />
+            <img src="images/07-estudio.jpg" width="900" height="1600" loading="lazy" decoding="async"
+                 alt="Estudio independiente con escritorio" />
+          </picture>
+        </button>
+        <div class="tour-text">
+          <p class="tour-num">04</p>
+          <h3 class="tour-title">Estudio independiente</h3>
+          <p class="text-mist lead mt-4">Tu home office con puerta propia, o un cuarto para visitas, música o lo que necesites.</p>
+        </div>
+      </article>
+
+      <article class="tour-row reveal">
+        <button type="button" data-shot class="shot frame tour-photo" aria-label="Ampliar foto: baño">
+          <picture>
+            <source srcset="images/opt/09-bano.webp" type="image/webp" />
+            <img src="images/09-bano.jpg" width="900" height="1600" loading="lazy" decoding="async"
+                 alt="Baño con ducha de vidrio, mueble de lavamanos y espejo" />
+          </picture>
+        </button>
+        <div class="tour-text">
+          <p class="tour-num">05</p>
+          <h3 class="tour-title">Baño</h3>
+          <p class="text-mist lead mt-4">Completo, con ducha en vidrio y mueble de lavamanos.</p>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- Más fotos: carrusel deslizable -->
+    <div class="mt-20 md:mt-28 reveal">
+      <div class="flex items-end justify-between gap-4 mb-5">
+        <p class="caps text-moss">Más fotos</p>
+        <p class="caps text-mist hidden sm:block">Desliza →</p>
+      </div>
+      <div class="strip">
+        <button type="button" data-shot class="shot frame strip-item" aria-label="Ampliar foto: sala y comedor">
+          <picture><source srcset="images/opt/11-social.webp" type="image/webp" /><img src="images/11-social.jpg" width="900" height="1600" loading="lazy" decoding="async" alt="Sala y comedor luminosos con ventanal y girasoles" /></picture>
+          <span class="shot__cap caps">Sala y comedor</span>
+        </button>
+        <button type="button" data-shot class="shot frame strip-item" aria-label="Ampliar foto: vista a los cerros">
+          <picture><source srcset="images/opt/08-vista.webp" type="image/webp" /><img src="images/08-vista.jpg" width="900" height="1600" loading="lazy" decoding="async" alt="Ventanal con vista a los cerros orientales" /></picture>
+          <span class="shot__cap caps">Vista</span>
+        </button>
+        <button type="button" data-shot class="shot frame strip-item" aria-label="Ampliar foto: cocina integral">
+          <picture><source srcset="images/opt/10-cocina-2.webp" type="image/webp" /><img src="images/10-cocina-2.jpg" width="900" height="1600" loading="lazy" decoding="async" alt="Cocina integral con nevera, horno y campana" /></picture>
+          <span class="shot__cap caps">Cocina</span>
+        </button>
+        <button type="button" data-shot class="shot frame strip-item" aria-label="Ampliar foto: habitación con clóset">
+          <picture><source srcset="images/opt/06-habitacion-2.webp" type="image/webp" /><img src="images/06-habitacion-2.jpg" width="900" height="1600" loading="lazy" decoding="async" alt="Habitación principal con clóset amplio" /></picture>
+          <span class="shot__cap caps">Clóset</span>
+        </button>
+        <button type="button" data-shot class="shot frame strip-item" aria-label="Ampliar foto: zona social integrada">
+          <picture><source srcset="images/opt/12-social.webp" type="image/webp" /><img src="images/12-social.jpg" width="900" height="1600" loading="lazy" decoding="async" alt="Zona social integrada: sala, comedor y cocina" /></picture>
+          <span class="shot__cap caps">Zona social</span>
+        </button>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- ===================== PLANO ===================== -->
 <section id="plano" class="section-y gutter-x bg-stone">
-  <div class="max-w-container mx-auto">
-    <div class="mb-10 md:mb-14 reveal max-w-2xl">
+  <div class="max-w-container mx-auto grid md:grid-cols-[1fr_1.4fr] gap-10 lg:gap-20 items-center">
+    <div class="reveal">
       <p class="caps text-moss eyebrow">Plano</p>
-      <h2 class="h-section mt-5">Así se distribuye el espacio</h2>
+      <h2 class="h-section mt-5 mb-5">Así se distribuye el espacio</h2>
+      <p class="text-mist lead">45,8 m² bien aprovechados: zona social abierta, habitación, estudio y baño.</p>
     </div>
-    <div class="relative max-w-3xl mx-auto reveal">
+    <div class="reveal">
       <div class="frame rounded-3xl bg-paper" style="box-shadow:0 30px 60px -30px rgba(19,33,26,.35)">
         <picture>
           <source srcset="images/opt/plano.webp" type="image/webp" />
@@ -560,115 +686,6 @@
                style="object-fit:contain" />
         </picture>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===================== GALERÍA ===================== -->
-<section id="galeria" class="section-y gutter-x bg-paper">
-  <div class="max-w-container mx-auto">
-    <div class="mb-10 md:mb-14 reveal">
-      <p class="caps text-moss eyebrow">Galería</p>
-      <h2 class="h-section mt-5">Conoce cada espacio</h2>
-      <p class="text-mist mt-4">Toca cualquier foto para ampliarla.</p>
-    </div>
-
-    <!-- Todas las fotos son verticales (9:16): el grid respeta ese formato en vez de recortarlo -->
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-2.5 md:gap-3.5">
-
-      <!-- 2 col × 2 filas escala proporcional: mismo 3/4 que las celdas simples,
-           así las filas del grid cuadran exacto y no quedan huecos -->
-      <button type="button" data-shot class="shot frame rounded-2xl reveal col-span-2 row-span-2 aspect-[3/4]"
-              aria-label="Ampliar foto: sala y zona social">
-        <picture>
-          <source srcset="images/opt/02-sala.webp" type="image/webp" />
-          <img src="images/02-sala.jpg" width="900" height="1600" loading="lazy" decoding="async"
-               sizes="(min-width:1024px) 50vw, 100vw"
-               alt="Sala con sofá, comedor y cocina al fondo" />
-        </picture>
-        <span class="shot__cap caps">Sala &amp; zona social</span>
-      </button>
-
-      <button type="button" data-shot class="shot frame rounded-2xl reveal aspect-[3/4]" aria-label="Ampliar foto: sala y comedor">
-        <picture>
-          <source srcset="images/opt/11-social.webp" type="image/webp" />
-          <img src="images/11-social.jpg" width="900" height="1600" loading="lazy" decoding="async"
-               sizes="(min-width:1024px) 25vw, 50vw"
-               alt="Sala y comedor luminosos con ventanal y girasoles" />
-        </picture>
-        <span class="shot__cap caps">Sala y comedor</span>
-      </button>
-
-      <button type="button" data-shot class="shot frame rounded-2xl reveal aspect-[3/4]" aria-label="Ampliar foto: cocina equipada">
-        <picture>
-          <source srcset="images/opt/04-cocina.webp" type="image/webp" />
-          <img src="images/04-cocina.jpg" width="900" height="1600" loading="lazy" decoding="async"
-               sizes="(min-width:1024px) 25vw, 50vw"
-               alt="Cocina equipada con campana, estufa de gas y horno" />
-        </picture>
-        <span class="shot__cap caps">Cocina equipada</span>
-      </button>
-
-      <button type="button" data-shot class="shot frame rounded-2xl reveal aspect-[3/4]" aria-label="Ampliar foto: cocina integral">
-        <picture>
-          <source srcset="images/opt/10-cocina-2.webp" type="image/webp" />
-          <img src="images/10-cocina-2.jpg" width="900" height="1600" loading="lazy" decoding="async"
-               sizes="(min-width:1024px) 25vw, 50vw"
-               alt="Cocina integral con nevera, horno y campana" />
-        </picture>
-        <span class="shot__cap caps">Cocina integral</span>
-      </button>
-
-      <button type="button" data-shot class="shot frame rounded-2xl reveal aspect-[3/4]" aria-label="Ampliar foto: baño">
-        <picture>
-          <source srcset="images/opt/09-bano.webp" type="image/webp" />
-          <img src="images/09-bano.jpg" width="900" height="1600" loading="lazy" decoding="async"
-               sizes="(min-width:1024px) 25vw, 50vw"
-               alt="Baño con ducha de vidrio, mueble de lavamanos y espejo" />
-        </picture>
-        <span class="shot__cap caps">Baño</span>
-      </button>
-
-      <button type="button" data-shot class="shot frame rounded-2xl reveal aspect-[3/4]" aria-label="Ampliar foto: habitación principal">
-        <picture>
-          <source srcset="images/opt/05-habitacion.webp" type="image/webp" />
-          <img src="images/05-habitacion.jpg" width="900" height="1600" loading="lazy" decoding="async"
-               sizes="(min-width:1024px) 25vw, 50vw"
-               alt="Habitación principal con ventanal y vista a los cerros" />
-        </picture>
-        <span class="shot__cap caps">Habitación principal</span>
-      </button>
-
-      <button type="button" data-shot class="shot frame rounded-2xl reveal aspect-[3/4]" aria-label="Ampliar foto: estudio">
-        <picture>
-          <source srcset="images/opt/07-estudio.webp" type="image/webp" />
-          <img src="images/07-estudio.jpg" width="900" height="1600" loading="lazy" decoding="async"
-               sizes="(min-width:1024px) 25vw, 50vw"
-               alt="Estudio independiente con escritorio, guitarra y piano" />
-        </picture>
-        <span class="shot__cap caps">Estudio / oficina</span>
-      </button>
-
-      <button type="button" data-shot class="shot frame rounded-2xl reveal aspect-[3/4]" aria-label="Ampliar foto: habitación con clóset">
-        <picture>
-          <source srcset="images/opt/06-habitacion-2.webp" type="image/webp" />
-          <img src="images/06-habitacion-2.jpg" width="900" height="1600" loading="lazy" decoding="async"
-               sizes="(min-width:1024px) 25vw, 50vw"
-               alt="Habitación principal con clóset amplio" />
-        </picture>
-        <span class="shot__cap caps">Clóset</span>
-      </button>
-
-      <button type="button" data-shot class="shot frame rounded-2xl reveal col-span-2 aspect-[3/2]" aria-label="Ampliar foto: zona social integrada">
-        <picture>
-          <source srcset="images/opt/12-social.webp" type="image/webp" />
-          <img src="images/12-social.jpg" width="900" height="1600" loading="lazy" decoding="async"
-               sizes="(min-width:1024px) 50vw, 100vw"
-               alt="Zona social integrada: sala, comedor y cocina" />
-        </picture>
-        <span class="shot__cap caps">Zona social integrada</span>
-      </button>
-
     </div>
   </div>
 </section>
@@ -728,12 +745,12 @@
 
 <!-- ===================== CONDICIONES ===================== -->
 <section id="condiciones" class="section-y gutter-x bg-ink text-paper">
-  <div class="max-w-container mx-auto grid md:grid-cols-2 gap-10 lg:gap-20 items-center">
+  <div class="max-w-container mx-auto grid md:grid-cols-2 gap-10 lg:gap-16 items-end">
     <div class="reveal">
-      <p class="caps text-lime eyebrow">Condiciones</p>
+      <p class="caps text-lime eyebrow">El arriendo</p>
       <h2 class="h-section mt-5 mb-8 md:mb-10">Todo claro, sin sorpresas</h2>
 
-      <!-- Ficha con dot leaders: se lee como un brochure impreso -->
+      <p class="caps text-paper/50 mb-3">Lo que obtienes</p>
       <dl class="rounded-2xl border border-paper/15 divide-y divide-paper/10 text-[15px] overflow-hidden">
         <div class="leader py-4 px-5">
           <dt class="leader__key text-paper/60">Canon mensual</dt>
@@ -746,14 +763,24 @@
           <dd class="leader__val font-semibold text-lime">Incluida</dd>
         </div>
         <div class="leader py-4 px-5">
-          <dt class="leader__key text-paper/60">Entrega</dt>
-          <span class="leader__dots" aria-hidden="true"></span>
-          <dd class="leader__val">Sin amoblar</dd>
-        </div>
-        <div class="leader py-4 px-5">
           <dt class="leader__key text-paper/60">Parqueadero</dt>
           <span class="leader__dots" aria-hidden="true"></span>
-          <dd class="leader__val font-mono">1 incluido</dd>
+          <dd class="leader__val font-semibold text-lime">1 incluido</dd>
+        </div>
+        <div class="leader py-4 px-5">
+          <dt class="leader__key text-paper/60">Depósito</dt>
+          <span class="leader__dots" aria-hidden="true"></span>
+          <dd class="leader__val font-semibold text-lime">No se pide</dd>
+        </div>
+        <div class="leader py-4 px-5">
+          <dt class="leader__key text-paper/60">Mascotas</dt>
+          <span class="leader__dots" aria-hidden="true"></span>
+          <dd class="leader__val font-semibold text-lime">Bienvenidas (gatos y perros)</dd>
+        </div>
+        <div class="leader py-4 px-5">
+          <dt class="leader__key text-paper/60">Entrega</dt>
+          <span class="leader__dots" aria-hidden="true"></span>
+          <dd class="leader__val">Sin amoblar, lista para ti</dd>
         </div>
         <div class="leader py-4 px-5">
           <dt class="leader__key text-paper/60">Estrato</dt>
@@ -763,35 +790,29 @@
         <div class="leader py-4 px-5">
           <dt class="leader__key text-paper/60">Servicios públicos</dt>
           <span class="leader__dots" aria-hidden="true"></span>
-          <dd class="leader__val text-paper/80">A cargo del arrendatario</dd>
-        </div>
-        <div class="leader py-4 px-5">
-          <dt class="leader__key text-paper/60">Póliza de arrendamiento</dt>
-          <span class="leader__dots" aria-hidden="true"></span>
-          <dd class="leader__val text-paper/80">Requerida</dd>
-        </div>
-        <div class="leader py-4 px-5">
-          <dt class="leader__key text-paper/60">Mascotas</dt>
-          <span class="leader__dots" aria-hidden="true"></span>
-          <dd class="leader__val font-semibold">Se aceptan (gatos y perros)</dd>
-        </div>
-        <div class="leader py-4 px-5">
-          <dt class="leader__key text-paper/60">Depósito</dt>
-          <span class="leader__dots" aria-hidden="true"></span>
-          <dd class="leader__val font-semibold">No incluye</dd>
+          <dd class="leader__val text-paper/80">Por cuenta del arrendatario</dd>
         </div>
       </dl>
+
     </div>
 
-    <div class="reveal relative">
-      <button type="button" data-shot class="shot frame aspect-[4/5] rounded-3xl"
-              aria-label="Ampliar foto: habitación principal con clóset">
-        <picture>
-          <source srcset="images/opt/06-habitacion-2.webp" type="image/webp" />
-          <img src="images/06-habitacion-2.jpg" width="900" height="1600" loading="lazy" decoding="async"
-               alt="Habitación principal con clóset" />
-        </picture>
-      </button>
+    <div class="reveal flex flex-col gap-4">
+      <div class="rounded-3xl bg-ink-2 border border-paper/10 p-7 md:p-10">
+        <p class="caps text-paper/50">Pagas al mes</p>
+        <p class="font-mono font-semibold mt-3 leading-none" style="font-size:var(--fs-data)">$2.650.000</p>
+        <p class="text-paper/70 mt-4 leading-relaxed">Incluye administración, parqueadero y acceso a todas las zonas comunes. Solo pagas aparte tus servicios públicos.</p>
+      </div>
+
+      <div class="rounded-3xl bg-lime text-ink p-7 md:p-10">
+        <div class="flex items-center gap-3">
+          <span class="h-10 w-10 shrink-0 rounded-full bg-ink text-lime grid place-items-center">
+            <svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>
+          </span>
+          <p class="caps text-ink/70">Única condición</p>
+        </div>
+        <p class="font-display font-semibold text-2xl md:text-3xl mt-5 leading-tight">Póliza de seguro de arrendamiento</p>
+        <p class="text-ink/75 mt-3 leading-relaxed">Es el único requisito para arrendar el apartamento.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -802,17 +823,15 @@
     <div class="grid md:grid-cols-2 gap-10 lg:gap-20 items-center">
       <div class="reveal">
         <p class="caps text-moss eyebrow">Ubicación</p>
-        <h2 class="h-section mt-5 mb-5">North Point, zona norte de Bogotá</h2>
+        <h2 class="h-section mt-5 mb-5">Cerca de todo lo que necesitas</h2>
         <p class="text-mist lead mb-8 max-w-prose">
-          Carrera 6 # 155C‑50, en North Point City (Usaquén), al pie de los cerros orientales
-          y cerca de la Autopista Norte.
+          Carrera 6 # 155C‑50, North Point City (Usaquén), al pie de los cerros orientales.
         </p>
-        <ul class="flex flex-wrap gap-2 mb-9">
-          <li class="inline-flex items-center gap-2 rounded-full border border-ink/20 caps text-ink px-4 py-2.5"><svg class="icon-sm icon text-moss" aria-hidden="true"><use href="#i-trees"/></svg> Cerros orientales</li>
-          <li class="inline-flex items-center gap-2 rounded-full border border-ink/20 caps text-ink px-4 py-2.5"><svg class="icon-sm icon text-moss" aria-hidden="true"><use href="#i-route"/></svg> Carrera 7ma</li>
-          <li class="inline-flex items-center gap-2 rounded-full border border-ink/20 caps text-ink px-4 py-2.5"><svg class="icon-sm icon text-moss" aria-hidden="true"><use href="#i-store"/></svg> C.C. Palatino</li>
-          <li class="inline-flex items-center gap-2 rounded-full border border-ink/20 caps text-ink px-4 py-2.5"><svg class="icon-sm icon text-moss" aria-hidden="true"><use href="#i-route"/></svg> Vías principales</li>
-          <li class="inline-flex items-center gap-2 rounded-full border border-ink/20 caps text-ink px-4 py-2.5"><svg class="icon-sm icon text-moss" aria-hidden="true"><use href="#i-park"/></svg> Parque La Colina</li>
+        <ul class="grid grid-cols-2 gap-3 mb-9">
+          <li class="near"><svg class="icon text-moss" aria-hidden="true"><use href="#i-trees"/></svg><span><strong>Cerros orientales</strong>Al pie del edificio</span></li>
+          <li class="near"><svg class="icon text-moss" aria-hidden="true"><use href="#i-store"/></svg><span><strong>C.C. Palatino</strong>Compras y restaurantes</span></li>
+          <li class="near"><svg class="icon text-moss" aria-hidden="true"><use href="#i-route"/></svg><span><strong>Carrera 7ma</strong>Salida rápida al norte y al centro</span></li>
+          <li class="near"><svg class="icon text-moss" aria-hidden="true"><use href="#i-store"/></svg><span><strong>Parque La Colina</strong>Centro comercial</span></li>
         </ul>
         <a data-wa href="https://wa.me/573102662404" target="_blank" rel="noopener"
            class="btn tap inline-flex items-center gap-2.5 rounded-full bg-ink text-paper caps px-7 py-4 hover:bg-ink-2">
@@ -837,10 +856,15 @@
 <!-- ===================== CONTACTO ===================== -->
 <section id="contacto" class="section-y gutter-x bg-stone">
   <div class="max-w-container mx-auto">
-    <div class="max-w-2xl mx-auto rounded-3xl bg-ink text-paper px-6 py-12 md:px-14 md:py-16 text-center reveal">
-      <p class="caps text-lime">Contacto</p>
-      <h2 class="h-section mt-4 mb-4">¿Te interesa? Hablemos</h2>
-      <p class="text-paper/75 lead max-w-md mx-auto mb-9">
+    <div class="cta-card reveal relative overflow-hidden rounded-[2rem] text-paper px-6 py-16 md:px-14 md:py-24 text-center">
+      <picture>
+        <source srcset="images/opt/11-social.webp" type="image/webp" />
+        <img src="images/11-social.jpg" width="900" height="1600" loading="lazy" decoding="async" alt="" class="cta-bg" />
+      </picture>
+      <div class="relative">
+      <p class="caps text-lime">Disponible ahora</p>
+      <h2 class="h-section mt-4 mb-4">Agenda tu visita</h2>
+      <p class="text-paper/80 lead max-w-md mx-auto mb-9">
         Escríbeme por WhatsApp, te cuento más y coordinamos una visita cuando te quede bien.
       </p>
       <a data-wa href="https://wa.me/573102662404" target="_blank" rel="noopener"
@@ -855,6 +879,7 @@
         <span class="text-paper/40" aria-hidden="true">·</span>
         <span>Respuesta directa del propietario</span>
       </p>
+      </div>
     </div>
   </div>
 </section>
@@ -875,11 +900,17 @@
 
 <!-- ===================== STICKY MOBILE CTA ===================== -->
 <div id="stickyCta" class="md:hidden fixed bottom-0 inset-x-0 z-40 px-3 pt-3">
-  <a data-wa href="https://wa.me/573102662404" target="_blank" rel="noopener"
-     class="btn tap w-full inline-flex items-center justify-center gap-2.5 rounded-full bg-lime text-ink font-bold caps py-4 shadow-[0_12px_35px_-6px_rgba(0,0,0,.55)]">
-    <svg class="icon" aria-hidden="true"><use href="#i-chat"/></svg>
-    Escríbeme por WhatsApp
-  </a>
+  <div class="flex items-center gap-3 rounded-full bg-ink border border-paper/10 pl-5 pr-1.5 py-1.5 shadow-[0_12px_35px_-6px_rgba(0,0,0,.55)]">
+    <div class="leading-tight text-paper min-w-0">
+      <p class="font-mono font-semibold text-[15px]">$2.650.000</p>
+      <p class="text-[10px] font-bold tracking-[.1em] uppercase text-paper/55">/ mes · admón. incl.</p>
+    </div>
+    <a data-wa href="https://wa.me/573102662404" target="_blank" rel="noopener"
+       class="btn tap ml-auto inline-flex items-center justify-center gap-2 rounded-full bg-lime text-ink font-bold text-sm px-5 py-3">
+      <svg class="icon" aria-hidden="true"><use href="#i-chat"/></svg>
+      Agendar visita
+    </a>
+  </div>
 </div>
 
 <!-- ===================== LIGHTBOX ===================== -->
