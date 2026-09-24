@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8" />
 <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport" />
-<title>Arriendo Apartamento — North Point Lift, Bogotá | $2.700.000/mes</title>
-<meta name="description" content="Apartamento en arriendo en North Point Lift (Cra 6 #155C-50), zona norte de Bogotá. 1 habitación + estudio, 1 baño, parqueadero, ≈45 m², vista a los cerros. $2.700.000/mes con administración incluida. Disponible ya, contacto directo con el propietario." />
+<title>Arriendo Apartamento — North Point Lift, Bogotá | $2.650.000/mes</title>
+<meta name="description" content="Apartamento en arriendo en North Point Lift (Cra 6 #155C-50), zona norte de Bogotá. 1 habitación + estudio, 1 baño, parqueadero, ≈45 m², vista a los cerros. $2.650.000/mes con administración incluida. Disponible ya, contacto directo con el propietario." />
 <link rel="canonical" href="https://north-point-lift.vercel.app/" />
-<meta property="og:title" content="Arriendo Apartamento — North Point Lift, Bogotá | $2.700.000/mes" />
-<meta property="og:description" content="1 habitación + estudio · 1 baño · parqueadero · ≈45 m² · vista a los cerros. $2.700.000/mes, administración incluida. Entrega inmediata." />
+<meta property="og:title" content="Arriendo Apartamento — North Point Lift, Bogotá | $2.650.000/mes" />
+<meta property="og:description" content="1 habitación + estudio · 1 baño · parqueadero · ≈45 m² · vista a los cerros. $2.650.000/mes, administración incluida. Entrega inmediata." />
 <meta property="og:type" content="website" />
 <meta property="og:locale" content="es_CO" />
 <meta property="og:url" content="https://north-point-lift.vercel.app/" />
@@ -267,6 +267,29 @@
 
   /* Sin JS: nada queda invisible */
   .no-js .reveal { opacity: 1; transform: none; }
+  /* Zonas comunes: panel destacado tipo bento */
+  .amen-glow {
+    position: absolute; width: 520px; height: 520px; right: -160px; top: -200px;
+    background: radial-gradient(circle, rgba(190,220,74,.16), transparent 65%);
+    pointer-events: none;
+  }
+  .amen-card {
+    display: flex; flex-direction: column; min-height: 11rem;
+    padding: 1.25rem; border-radius: 1.25rem;
+    background: #1E2E24; border: 1px solid rgba(247,244,236,.08);
+    transition: border-color var(--dur) var(--ease), transform var(--dur) var(--ease);
+  }
+  .amen-card:hover { border-color: rgba(190,220,74,.45); transform: translateY(-2px); }
+  .amen-card--feature {
+    min-height: 15rem; padding: 1.75rem;
+    background: linear-gradient(145deg, #2A4133 0%, #1E2E24 70%);
+  }
+  .amen-ico {
+    display: inline-grid; place-items: center; width: 2.75rem; height: 2.75rem;
+    border-radius: 9999px; background: rgba(190,220,74,.12); color: #BEDC4A;
+  }
+  .amen-ico--lg { width: 3.5rem; height: 3.5rem; background: #BEDC4A; color: #13211A; }
+  @media (min-width: 768px) { .amen-card { padding: 1.5rem; } .amen-card--feature { padding: 2.25rem; } }
 </style>
 </head>
 <body class="bg-paper text-ink antialiased no-js">
@@ -359,7 +382,7 @@
       <a href="#apartamento" class="hover:text-paper transition-colors">Apartamento</a>
       <a href="#plano" class="hover:text-paper transition-colors">Plano</a>
       <a href="#galeria" class="hover:text-paper transition-colors">Galería</a>
-      <a href="#amenidades" class="hover:text-paper transition-colors">Amenidades</a>
+      <a href="#amenidades" class="hover:text-paper transition-colors">Zonas comunes</a>
       <a href="#condiciones" class="hover:text-paper transition-colors">Condiciones</a>
       <a href="#ubicacion" class="hover:text-paper transition-colors">Ubicación</a>
     </div>
@@ -379,7 +402,7 @@
     <a href="#apartamento" class="flex items-center justify-between px-4 py-4 rounded-2xl text-paper/85 hover:bg-paper/5 caps">Apartamento <svg class="icon-sm icon text-paper/40" aria-hidden="true"><use href="#i-chevron-right"/></svg></a>
     <a href="#plano" class="flex items-center justify-between px-4 py-4 rounded-2xl text-paper/85 hover:bg-paper/5 caps">Plano <svg class="icon-sm icon text-paper/40" aria-hidden="true"><use href="#i-chevron-right"/></svg></a>
     <a href="#galeria" class="flex items-center justify-between px-4 py-4 rounded-2xl text-paper/85 hover:bg-paper/5 caps">Galería <svg class="icon-sm icon text-paper/40" aria-hidden="true"><use href="#i-chevron-right"/></svg></a>
-    <a href="#amenidades" class="flex items-center justify-between px-4 py-4 rounded-2xl text-paper/85 hover:bg-paper/5 caps">Amenidades <svg class="icon-sm icon text-paper/40" aria-hidden="true"><use href="#i-chevron-right"/></svg></a>
+    <a href="#amenidades" class="flex items-center justify-between px-4 py-4 rounded-2xl text-paper/85 hover:bg-paper/5 caps">Zonas comunes <svg class="icon-sm icon text-paper/40" aria-hidden="true"><use href="#i-chevron-right"/></svg></a>
     <a href="#condiciones" class="flex items-center justify-between px-4 py-4 rounded-2xl text-paper/85 hover:bg-paper/5 caps">Condiciones <svg class="icon-sm icon text-paper/40" aria-hidden="true"><use href="#i-chevron-right"/></svg></a>
     <a href="#ubicacion" class="flex items-center justify-between px-4 py-4 rounded-2xl text-paper/85 hover:bg-paper/5 caps">Ubicación <svg class="icon-sm icon text-paper/40" aria-hidden="true"><use href="#i-chevron-right"/></svg></a>
     <a href="#contacto" class="block mt-2 text-center rounded-full bg-lime text-ink font-bold py-4 caps btn">Agendar visita</a>
@@ -446,7 +469,7 @@
             <svg class="icon" aria-hidden="true"><use href="#i-home"/></svg>
           </span>
           <div class="leading-tight">
-            <p class="font-mono font-bold text-lg leading-none">$2.700.000</p>
+            <p class="font-mono font-bold text-lg leading-none">$2.650.000</p>
             <p class="caps text-mist mt-1.5 text-[10px] tracking-[.12em]">COP / mes · admón. incluida</p>
           </div>
         </div>
@@ -653,37 +676,53 @@
 <!-- ===================== AMENIDADES ===================== -->
 <section id="amenidades" class="section-y gutter-x bg-stone">
   <div class="max-w-container mx-auto">
-    <div class="mb-10 md:mb-14 reveal max-w-2xl">
-      <p class="caps text-moss eyebrow">El edificio</p>
-      <h2 class="h-section mt-5">Lo que tiene el edificio</h2>
+    <div class="amen-panel reveal rounded-[2rem] bg-ink text-paper p-6 sm:p-10 md:p-14 relative overflow-hidden">
+      <div class="amen-glow" aria-hidden="true"></div>
+
+      <div class="relative grid md:grid-cols-[1.1fr_1fr] gap-6 md:gap-12 items-end mb-10 md:mb-14">
+        <div>
+          <p class="caps text-lime eyebrow">Zonas comunes</p>
+          <h2 class="h-section mt-5">Mucho más que un apartamento</h2>
+        </div>
+        <div>
+          <p class="lead text-paper/70">Vives con gym, coworking y jardín en el mismo edificio, sin pagar membresías aparte.</p>
+          <p class="inline-flex items-center gap-2 mt-5 rounded-full bg-lime text-ink caps px-4 py-2">
+            <svg class="icon-sm icon" aria-hidden="true"><use href="#i-check"/></svg>
+            Incluidas en la administración
+          </p>
+        </div>
+      </div>
+
+      <ul class="relative grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+        <li class="amen-card amen-card--feature col-span-2 md:row-span-2">
+          <span class="amen-ico amen-ico--lg"><svg class="icon-lg icon" aria-hidden="true"><use href="#i-briefcase"/></svg></span>
+          <div class="mt-auto">
+            <p class="font-display font-semibold text-2xl md:text-[2rem] leading-tight">Coworking</p>
+            <p class="text-paper/65 mt-2 leading-relaxed max-w-sm">Un espacio para trabajar fuera de casa, sin salir del edificio. Ideal si trabajas remoto.</p>
+          </div>
+        </li>
+        <li class="amen-card">
+          <span class="amen-ico"><svg class="icon" aria-hidden="true"><use href="#i-dumbbell"/></svg></span>
+          <p class="font-display font-semibold mt-auto pt-6" style="font-size:var(--fs-h3)">Gym</p>
+          <p class="text-paper/60 text-sm mt-1">Entrena a cualquier hora.</p>
+        </li>
+        <li class="amen-card">
+          <span class="amen-ico"><svg class="icon" aria-hidden="true"><use href="#i-leaf"/></svg></span>
+          <p class="font-display font-semibold mt-auto pt-6" style="font-size:var(--fs-h3)">Jardín VIP</p>
+          <p class="text-paper/60 text-sm mt-1">Zona verde privada.</p>
+        </li>
+        <li class="amen-card">
+          <span class="amen-ico"><svg class="icon" aria-hidden="true"><use href="#i-bell"/></svg></span>
+          <p class="font-display font-semibold mt-auto pt-6" style="font-size:var(--fs-h3)">Lobby</p>
+          <p class="text-paper/60 text-sm mt-1">Portería 24 horas.</p>
+        </li>
+        <li class="amen-card">
+          <span class="amen-ico"><svg class="icon" aria-hidden="true"><use href="#i-mountain"/></svg></span>
+          <p class="font-display font-semibold mt-auto pt-6" style="font-size:var(--fs-h3)">Vista a los cerros</p>
+          <p class="text-paper/60 text-sm mt-1">Los cerros, al pie del edificio.</p>
+        </li>
+      </ul>
     </div>
-    <ul class="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-5 reveal">
-      <li class="rounded-2xl bg-paper p-5 md:p-7 border border-ink/5">
-        <span class="text-lime bg-ink rounded-full p-2.5 inline-grid place-items-center"><svg class="icon" aria-hidden="true"><use href="#i-dumbbell"/></svg></span>
-        <p class="font-display font-semibold mt-4" style="font-size:var(--fs-h3)">Gym</p>
-        <p class="text-mist text-sm mt-1.5 leading-relaxed">Para entrenar sin salir del edificio.</p>
-      </li>
-      <li class="rounded-2xl bg-paper p-5 md:p-7 border border-ink/5">
-        <span class="text-lime bg-ink rounded-full p-2.5 inline-grid place-items-center"><svg class="icon" aria-hidden="true"><use href="#i-briefcase"/></svg></span>
-        <p class="font-display font-semibold mt-4" style="font-size:var(--fs-h3)">Coworking</p>
-        <p class="text-mist text-sm mt-1.5 leading-relaxed">Para tus días de trabajo remoto.</p>
-      </li>
-      <li class="rounded-2xl bg-paper p-5 md:p-7 border border-ink/5">
-        <span class="text-lime bg-ink rounded-full p-2.5 inline-grid place-items-center"><svg class="icon" aria-hidden="true"><use href="#i-leaf"/></svg></span>
-        <p class="font-display font-semibold mt-4" style="font-size:var(--fs-h3)">Jardín VIP</p>
-        <p class="text-mist text-sm mt-1.5 leading-relaxed">Zona verde privada.</p>
-      </li>
-      <li class="rounded-2xl bg-paper p-5 md:p-7 border border-ink/5">
-        <span class="text-lime bg-ink rounded-full p-2.5 inline-grid place-items-center"><svg class="icon" aria-hidden="true"><use href="#i-bell"/></svg></span>
-        <p class="font-display font-semibold mt-4" style="font-size:var(--fs-h3)">Lobby</p>
-        <p class="text-mist text-sm mt-1.5 leading-relaxed">Portería 24 horas.</p>
-      </li>
-      <li class="rounded-2xl bg-paper p-5 md:p-7 border border-ink/5">
-        <span class="text-lime bg-ink rounded-full p-2.5 inline-grid place-items-center"><svg class="icon" aria-hidden="true"><use href="#i-mountain"/></svg></span>
-        <p class="font-display font-semibold mt-4" style="font-size:var(--fs-h3)">Vista a los cerros</p>
-        <p class="text-mist text-sm mt-1.5 leading-relaxed">Los cerros, al pie del edificio.</p>
-      </li>
-    </ul>
   </div>
 </section>
 
@@ -699,7 +738,7 @@
         <div class="leader py-4 px-5">
           <dt class="leader__key text-paper/60">Canon mensual</dt>
           <span class="leader__dots" aria-hidden="true"></span>
-          <dd class="leader__val font-mono font-semibold text-2xl">$2.700.000</dd>
+          <dd class="leader__val font-mono font-semibold text-2xl">$2.650.000</dd>
         </div>
         <div class="leader py-4 px-5">
           <dt class="leader__key text-paper/60">Administración</dt>
@@ -887,7 +926,7 @@
     /* ---------- WhatsApp: los enlaces ya funcionan sin JS; aquí solo se
        les inyecta el mensaje y se respeta window.WA_NUMBER si cambia. ---------- */
     var WA = (window.WA_NUMBER || "").replace(/[^0-9]/g, "");
-    var DEFAULT_MSG = "Hola, vi la publicación del apartamento en North Point Lift ($2.700.000/mes con administración incluida) y me interesa. ¿Sigue disponible? Me gustaría agendar una visita.";
+    var DEFAULT_MSG = "Hola, vi la publicación del apartamento en North Point Lift ($2.650.000/mes con administración incluida) y me interesa. ¿Sigue disponible? Me gustaría agendar una visita.";
 
     if (!WA || WA.length < 10) {
       console.warn("⚠️ Configura tu número de WhatsApp en la línea: window.WA_NUMBER = \"57XXXXXXXXXX\";");
